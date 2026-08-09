@@ -32,7 +32,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"admin@fundsroom.local\",\n  \"password\": \"Admin@12345\"\n}"
+              "raw": "{\n  \"email\": \"admin@fundsroom.local\",\n  \"password\": \"{{admin_password}}\"\n}"
             },
             "description": "Returns a JWT token. Negative case: invalid credentials return 401."
           }

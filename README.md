@@ -102,12 +102,12 @@ The sales challan model stores product snapshots so confirmed challans keep the 
 
 Login is handled through `POST /api/auth/login` with email and password. The API returns a JWT that must be sent in the `Authorization: Bearer <token>` header for protected endpoints.
 
-Seeded login users:
+Seeded login accounts (passwords configured via environment variables):
 
-- `admin@fundsroom.local` / `Admin@12345`
-- `sales@fundsroom.local` / `Sales@12345`
-- `warehouse@fundsroom.local` / `Warehouse@12345`
-- `accounts@fundsroom.local` / `Accounts@12345`
+- `admin@fundsroom.local` (`ADMIN_SEED_PASSWORD`)
+- `sales@fundsroom.local` (`SALES_SEED_PASSWORD`)
+- `warehouse@fundsroom.local` (`WAREHOUSE_SEED_PASSWORD`)
+- `accounts@fundsroom.local` (`ACCOUNTS_SEED_PASSWORD`)
 
 ## Authorization
 
@@ -140,6 +140,10 @@ Create `server/.env` with:
 - `JWT_SECRET`
 - `PORT`
 - `CORS_ORIGIN`
+- `ADMIN_SEED_PASSWORD`
+- `SALES_SEED_PASSWORD`
+- `WAREHOUSE_SEED_PASSWORD`
+- `ACCOUNTS_SEED_PASSWORD`
 
 Create `client/.env` with:
 

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import app from "../app.js";
@@ -81,9 +82,13 @@ const main = async (): Promise<void> => {
         return response.body.data.token as string;
     };
 
-    const adminToken = await login("admin@fundsroom.local", "Admin@12345");
-    const salesToken = await login("sales@fundsroom.local", "Sales@12345");
-    const warehouseToken = await login("warehouse@fundsroom.local", "Warehouse@12345");
+    const adminPassword = process.env.ADMIN_SEED_PASSWORD ?? "Admin@12345";
+    const salesPassword = process.env.SALES_SEED_PASSWORD ?? "Sales@12345";
+    const warehousePassword = process.env.WAREHOUSE_SEED_PASSWORD ?? "Warehouse@12345";
+
+    const adminToken = await login("admin@fundsroom.local", adminPassword);
+    const salesToken = await login("sales@fundsroom.local", salesPassword);
+    const warehouseToken = await login("warehouse@fundsroom.local", warehousePassword);
 
     const run = async (name: string, fn: () => Promise<void>) => {
         process.stdout.write(`Running ${name}...\n`);
@@ -94,7 +99,7 @@ const main = async (): Promise<void> => {
         await run("authentication", async () => {
             const validLogin = await request("/api/auth/login", {
                 method: "POST",
-                body: { email: "admin@fundsroom.local", password: "Admin@12345" }
+                body: { email: "admin@fundsroom.local", password: adminPassword }
             });
 
             assert.equal(validLogin.status, 200);
