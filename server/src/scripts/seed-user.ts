@@ -14,6 +14,18 @@ const users = [
         email: "sales@fundsroom.local",
         password: "Sales@12345",
         role: "SALES" as const
+    },
+    {
+        name: "Warehouse User",
+        email: "warehouse@fundsroom.local",
+        password: "Warehouse@12345",
+        role: "WAREHOUSE" as const
+    },
+    {
+        name: "Accounts User",
+        email: "accounts@fundsroom.local",
+        password: "Accounts@12345",
+        role: "ACCOUNTS" as const
     }
 ];
 
