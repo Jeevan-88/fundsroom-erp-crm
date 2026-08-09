@@ -9,7 +9,9 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed:user": "tsx src/scripts/seed-user.ts"
+
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.1",
