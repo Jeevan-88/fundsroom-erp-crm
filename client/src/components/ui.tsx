@@ -141,7 +141,7 @@ export function EmptyState({
   return (
     <div className="state">
       <h3>{title}</h3>
-      <p>{description}</p>
+      <p className="support-copy">{description}</p>
       {action}
     </div>
   );

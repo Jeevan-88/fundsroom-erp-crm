@@ -6,8 +6,8 @@ import { Button, Card, Input } from "../components/ui";
 
 export function LoginPage() {
   const { login, isAuthenticated, isHydrated } = useAuth();
-  const [email, setEmail] = useState("admin@fundsroom.local");
-  const [password, setPassword] = useState("Admin@12345");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -44,14 +44,11 @@ export function LoginPage() {
         <div className="login-brand-panel">
           <div className="brand-mark large">FR</div>
           <h1>FundsRoom Mini ERP + CRM</h1>
-          <p>
-            Premium internal operations tooling for customers, inventory, stock,
-            and sales challans.
-          </p>
+          <p className="support-copy brand-story">While you work, FundsRoom keeps customers, stock, and challans in order.</p>
           <div className="brand-tags">
-            <span>JWT Auth</span>
-            <span>Neumorphic UI</span>
-            <span>Live Backend</span>
+            <span>Customers</span>
+            <span>Stock Control</span>
+            <span>Challans</span>
           </div>
         </div>
 
@@ -87,10 +84,7 @@ export function LoginPage() {
             </Button>
           </form>
 
-          <div className="login-footnote">
-            <div>Admin: admin@fundsroom.local / Admin@12345</div>
-            <div>Sales: sales@fundsroom.local / Sales@12345</div>
-          </div>
+          <div className="login-note support-copy">Internal access only. Use your assigned role account.</div>
         </Card>
       </div>
     </div>
