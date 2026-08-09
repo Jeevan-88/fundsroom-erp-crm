@@ -3,6 +3,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import prisma from "./lib/prisma.js";
 import authRoutes from "./modules/auth/auth.routes.js";
+import {
+    authenticate,
+    type AuthenticatedRequest
+} from "./middleware/auth.middleware.js";
 
 dotenv.config();
 
@@ -30,6 +34,19 @@ app.get("/health", async (_req, res) => {
         });
     }
 });
+app.get(
+    "/api/auth/me",
+    authenticate,
+    (req: AuthenticatedRequest, res) => {
+        res.status(200).json({
+            success: true,
+            data: {
+                userId: req.user?.userId,
+                role: req.user?.role
+            }
+        });
+    }
+);
 
 const PORT = process.env.PORT || 5000;
 
