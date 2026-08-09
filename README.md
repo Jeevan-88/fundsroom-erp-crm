@@ -1,12 +1,10 @@
 # FundsRoom Mini ERP + CRM
 
-FundsRoom Mini ERP + CRM is an internal web application for a wholesale and distribution business. The backend in this repository provides authentication, customer CRM, product and inventory management, stock movements, and sales challans with transaction-safe stock control.
+FundsRoom Mini ERP + CRM is an internal web application for a wholesale and distribution business. The repository now includes both the backend API and the frontend application. Together they provide authentication, customer CRM, product and inventory management, stock movements, sales challans, and transaction-safe stock control.
 
 ## Overview
 
-The project is structured as a modular Express + TypeScript API backed by PostgreSQL and Prisma. It uses JWT authentication and role-based authorization for the internal roles `ADMIN`, `SALES`, `WAREHOUSE`, and `ACCOUNTS`.
-
-The backend is currently the completed milestone in this workspace. The frontend work is intentionally left for a later stage.
+The project is structured as a modular Express + TypeScript API backed by PostgreSQL and Prisma, paired with a React + Vite + TypeScript frontend. It uses JWT authentication and role-based authorization for the internal roles `ADMIN`, `SALES`, `WAREHOUSE`, and `ACCOUNTS`.
 
 ## Features
 
@@ -18,18 +16,23 @@ The backend is currently the completed milestone in this workspace. The frontend
 - Sales challan creation, update, confirmation, and cancellation
 - Negative stock prevention
 - Product snapshots stored inside challan items
+- Responsive neumorphic frontend
+- Role-aware navigation and protected pages
 - REST API responses with consistent JSON shapes
 - Automated backend smoke tests
 
 ## Architecture
 
-The backend follows a layered structure:
+The backend follows a layered structure and the frontend is organized around reusable UI primitives and route-based screens:
 
 - Route layer for endpoint wiring
 - Middleware for authentication and authorization
 - Controller layer for HTTP request/response handling
 - Service layer for business rules and Prisma access
 - PostgreSQL for persistence
+- Shared neumorphic design system
+- Route-aware application shell
+- Reusable form, table, modal, and feedback components
 
 See [docs/architecture.md](docs/architecture.md) and [docs/database.md](docs/database.md) for the design notes.
 
@@ -40,6 +43,9 @@ See [docs/architecture.md](docs/architecture.md) and [docs/database.md](docs/dat
 - TypeScript
 - Prisma
 - PostgreSQL
+- React
+- Vite
+- React Router
 - JWT
 - bcryptjs
 - Zod
@@ -62,6 +68,13 @@ server/
 			challans/
 		scripts/
 		utils/
+client/
+	src/
+		components/
+		context/
+		lib/
+		pages/
+		styles/
 docs/
 	architecture.md
 	assumptions.md
@@ -126,16 +139,21 @@ Create `server/.env` with:
 - `DATABASE_URL`
 - `JWT_SECRET`
 - `PORT`
+- `CORS_ORIGIN`
+
+Create `client/.env` with:
+
+- `VITE_API_URL`
 
 Example values are intentionally not committed. Use your own Neon PostgreSQL connection string and a private JWT secret.
 
 ## Local Setup
 
-1. Install dependencies in `server/`.
-2. Configure `server/.env`.
+1. Install dependencies in `server/` and `client/`.
+2. Configure `server/.env` and `client/.env`.
 3. Run Prisma migrations.
 4. Seed the users.
-5. Start the backend.
+5. Start the backend and frontend.
 
 ## Database Setup
 
@@ -147,6 +165,12 @@ npm run seed:user
 ```
 
 If you need to inspect the generated client or schema after changes, rerun the Prisma commands above.
+
+From `client/`:
+
+```bash
+npm install
+```
 
 ## Migration Commands
 
@@ -175,6 +199,14 @@ npm run build
 npm run start
 ```
 
+From `client/`:
+
+```bash
+npm run dev
+npm run build
+npm run preview
+```
+
 ## Testing
 
 From `server/`:
@@ -182,6 +214,13 @@ From `server/`:
 ```bash
 npm run typecheck
 npm test
+```
+
+From `client/`:
+
+```bash
+npm run typecheck
+npm run build
 ```
 
 The smoke suite exercises:
@@ -209,6 +248,5 @@ Typical hosting options include Neon for PostgreSQL and a Node.js host such as R
 
 ## Known Limitations
 
-- The frontend/UI is not implemented in this milestone.
-- There is no browser-based user flow yet.
-- The test suite is a backend smoke suite rather than a full browser automation layer.
+- The frontend test coverage is limited to typecheck and production build validation.
+- There is no browser automation test suite yet.
