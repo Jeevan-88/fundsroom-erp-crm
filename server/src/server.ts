@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import prisma from "./lib/prisma.js";
 import authRoutes from "./modules/auth/auth.routes.js";
+import { authorize } from "./middleware/role.middleware.js";
 import {
     authenticate,
     type AuthenticatedRequest
@@ -44,6 +45,18 @@ app.get(
                 userId: req.user?.userId,
                 role: req.user?.role
             }
+        });
+    }
+);
+
+app.get(
+    "/api/admin/test",
+    authenticate,
+    authorize("ADMIN"),
+    (_req, res) => {
+        res.status(200).json({
+            success: true,
+            message: "Admin authorization successful"
         });
     }
 );
